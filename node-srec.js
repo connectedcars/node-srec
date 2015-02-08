@@ -91,17 +91,19 @@
   };
 
   module.exports.readSrecUrl = function(url, cb) {
-    if (cache[url]) {
+    if (false && cache[url]) {
       console.log("node-srec: from Cache Url: '" + url + "'");
       return cb(cache[url]);
     } else {
       console.log("node-srec: Getting Url: '" + url + "'");
       return request.get(url, function(error, response, body) {
         if (!error && response.statusCode === 200) {
+          console.log("got " + url + " " + response);
           cache[url] = parseSrec(body);
           return cb(cache[url]);
         } else {
-          return cb([]);
+          console.log("Error: cannot get " + url + "?? " + response);
+          return cb("", "Error: cannot get " + url + " http-status:" + response.statusCode);
         }
       });
     }

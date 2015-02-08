@@ -48,17 +48,19 @@ module.exports.readSrecFile = (fn,cb) ->
       cb cache[fn]
 
 module.exports.readSrecUrl = (url,cb) ->
-  if cache[url]
+  if false and cache[url]
     console.log "node-srec: from Cache Url: '#{url}'"
     cb cache[url]
   else
     console.log "node-srec: Getting Url: '#{url}'"
     request.get url, (error, response, body) ->
       if not error and response.statusCode is 200
-        cache[url]= parseSrec body
+        console.log "got #{url} #{response}"
+        cache[url]= parseSrec body #disable for now
         cb cache[url]
       else
-        cb []
+        console.log "Error: cannot get #{url}?? #{response}"
+        cb "","Error: cannot get #{url} http-status:#{response.statusCode}"
 
 module.exports.blockify  = (data,min,max,size) ->
   blks={}
