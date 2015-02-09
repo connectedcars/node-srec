@@ -2,7 +2,21 @@
 #encoding: UTF-8
 fs = require('fs');
 request = require('request');
+sprintf = require('sprintf').sprintf;
 
+module.exports.block2srec = block2srec = (a,data) ->
+  sum=data.length+5
+  sum+=a&0xff
+  sum+=(a>>8)&0xff
+  sum+=(a>>16)&0xff
+  sum+=(a>>24)&0xff
+  s=sprintf "S3%02X%08X",data.length+5,a
+  for byte in data
+    s+=sprintf "%02X",byte
+    sum+=byte
+  sum=(~sum)&0xff
+  s+=sprintf "%02X",sum
+  return s
 
 module.exports.parseSrec = parseSrec = (data) ->
   mem={}
