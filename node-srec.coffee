@@ -52,29 +52,29 @@ module.exports.parseSrec = parseSrec = (data) ->
 cache={}
 
 module.exports.readSrecFile = (fn,cb) ->
-  if cache[fn]
-    console.log "node-srec: from Cache File: '#{fn}'"
+  #if cache[fn]
+  #  console.log "node-srec: from Cache File: '#{fn}'"
+  #  cb cache[fn]
+  #else
+  console.log "node-srec: Reading File: '#{fn}'"
+  fs.readFile fn, 'utf8', (error,data) ->
+    cache[fn]=parseSrec data
     cb cache[fn]
-  else
-    console.log "node-srec: Reading File: '#{fn}'"
-    fs.readFile fn, 'utf8', (error,data) ->
-      cache[fn]=parseSrec data
-      cb cache[fn]
 
 module.exports.readSrecUrl = (url,cb) ->
-  if false and cache[url]
-    console.log "node-srec: from Cache Url: '#{url}'"
-    cb cache[url]
-  else
-    console.log "node-srec: Getting Url: '#{url}'"
-    request.get url, (error, response, body) ->
-      if not error and response.statusCode is 200
-        console.log "got #{url} #{response}"
-        cache[url]= parseSrec body #disable for now
-        cb cache[url]
-      else
-        console.log "Error: cannot get #{url}?? #{response}"
-        cb "","Error: cannot get #{url} http-status:#{response.statusCode}"
+  #if false and cache[url]
+  #  console.log "node-srec: from Cache Url: '#{url}'"
+  #  cb cache[url]
+  #else
+  console.log "node-srec: Getting Url: '#{url}'"
+  request.get url, (error, response, body) ->
+    if not error and response.statusCode is 200
+      console.log "got #{url} #{response}"
+      cache[url]= parseSrec body #disable for now
+      cb cache[url]
+    else
+      console.log "Error: cannot get #{url}?? #{response}"
+      cb "","Error: cannot get #{url} http-status:#{response.statusCode}"
 
 module.exports.blockify  = (data,min,max,size) ->
   blks={}

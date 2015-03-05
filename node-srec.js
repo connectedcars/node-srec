@@ -98,35 +98,25 @@
   cache = {};
 
   module.exports.readSrecFile = function(fn, cb) {
-    if (cache[fn]) {
-      console.log("node-srec: from Cache File: '" + fn + "'");
+    console.log("node-srec: Reading File: '" + fn + "'");
+    return fs.readFile(fn, 'utf8', function(error, data) {
+      cache[fn] = parseSrec(data);
       return cb(cache[fn]);
-    } else {
-      console.log("node-srec: Reading File: '" + fn + "'");
-      return fs.readFile(fn, 'utf8', function(error, data) {
-        cache[fn] = parseSrec(data);
-        return cb(cache[fn]);
-      });
-    }
+    });
   };
 
   module.exports.readSrecUrl = function(url, cb) {
-    if (false && cache[url]) {
-      console.log("node-srec: from Cache Url: '" + url + "'");
-      return cb(cache[url]);
-    } else {
-      console.log("node-srec: Getting Url: '" + url + "'");
-      return request.get(url, function(error, response, body) {
-        if (!error && response.statusCode === 200) {
-          console.log("got " + url + " " + response);
-          cache[url] = parseSrec(body);
-          return cb(cache[url]);
-        } else {
-          console.log("Error: cannot get " + url + "?? " + response);
-          return cb("", "Error: cannot get " + url + " http-status:" + response.statusCode);
-        }
-      });
-    }
+    console.log("node-srec: Getting Url: '" + url + "'");
+    return request.get(url, function(error, response, body) {
+      if (!error && response.statusCode === 200) {
+        console.log("got " + url + " " + response);
+        cache[url] = parseSrec(body);
+        return cb(cache[url]);
+      } else {
+        console.log("Error: cannot get " + url + "?? " + response);
+        return cb("", "Error: cannot get " + url + " http-status:" + response.statusCode);
+      }
+    });
   };
 
   module.exports.blockify = function(data, min, max, size) {
