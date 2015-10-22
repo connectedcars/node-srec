@@ -1,6 +1,6 @@
 {
   "name": "node-srec",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "Motorola S-record library",
   "main": "node-srec.js",
   "dependencies": {
