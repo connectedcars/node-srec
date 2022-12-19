@@ -117,9 +117,8 @@ module.exports.blockify = (data, min, max, size) => {
   blks = {};
   console.log("node-srec: Blockify", min.toString(16), max.toString(16), size);
   donee = false;
-  ref = data.recs;
-  for (as in ref) {
-    b = ref[as];
+  for (as in data.recs) {
+    b = data.recs[as];
     a = parseInt(as);
     len = b.length;
     for (var i = 0; i<len ; i++) {
@@ -133,7 +132,7 @@ module.exports.blockify = (data, min, max, size) => {
       blk = Math.floor((a + i - min) / size);
       oset = (a + i - min) % size;
       if (!blks[blk]) {
-        blks[blk] = Array.apply(null, new Array(size)).map(Number.prototype.valueOf, 0);
+        blks[blk] = Array.apply(null, new Array(size)).map(Number.prototype.valueOf, 0xff);
       }
       if (b[i] === void 0) {
         console.log("????? ", i, len);
