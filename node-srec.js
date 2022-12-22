@@ -98,7 +98,6 @@ module.exports.readSrecFile = (fn) => {
 module.exports.blockify = (data, min, max, size) => {
   var a, as, b, blk, blks, donee, i, j, len, oset, ref, ref1;
   blks = {};
-  console.log("node-srec: Blockify", min.toString(16), max.toString(16), size);
   donee = false;
   for (as in data.recs) {
     b = data.recs[as];
