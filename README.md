@@ -4,7 +4,7 @@ Motorola SREC library for nodejs
 
 # API:
 
-```readSrecFile(filename, (blks) => cb )```
+```var data = readSrecFile(filename)```
 reads a srec file and calls back with dictionary:
 ```
 {

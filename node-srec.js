@@ -89,28 +89,11 @@ module.exports.parseSrec = parseSrec = (data) => {
   };
 };
 
-cache = {};
 
-module.exports.readSrecFile = (fn, cb) => {
-  console.log("node-srec: Reading File: '" + fn + "'");
-  return fs.readFile(fn, 'utf8', function(error, data) {
-    cache[fn] = parseSrec(data);
-    return cb(cache[fn]);
-  });
+module.exports.readSrecFile = (fn) => {
+  return parseSrec(fs.readFileSync(fn, 'utf8'));
 };
 
-module.exports.readSrecUrl = (url, cb) => {
-  console.log("node-srec: Getting Url: '" + url + "'");
-  return request.get(url, function(error, response, body) {
-    if (!error && response && response.statusCode === 200) {
-      cache[url] = parseSrec(body);
-      return cb(cache[url]);
-    } else {
-      console.log("Error: cannot get " + url + "?? " + response);
-      return cb("", "Error: cannot get " + url + " error: " + error + " http-status:" + response);
-    }
-  });
-};
 
 module.exports.blockify = (data, min, max, size) => {
   var a, as, b, blk, blks, donee, i, j, len, oset, ref, ref1;
