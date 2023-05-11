@@ -1,5 +1,4 @@
 fs = require('fs');
-request = require('request');
 sprintf = require('sprintf').sprintf;
 
 module.exports.block2srec = block2srec = (a, data) => {
