@@ -4,7 +4,6 @@
   "description": "Motorola S-record library",
   "main": "node-srec.js",
   "dependencies": {
-    "request": "^2.88.2",
     "sprintf": ""
   },
   "scripts": {
