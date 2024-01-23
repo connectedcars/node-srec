@@ -1,6 +1,6 @@
 {
-  "name": "node-srec",
-  "version": "0.1.5",
+  "name": "@connectedcars/node-srec",
+  "version": "0.1.6",
   "description": "Motorola S-record library",
   "main": "node-srec.js",
   "dependencies": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arisi/node-srec.git"
+    "url": "git+https://github.com/connectedcars/node-srec.git"
   },
   "keywords": [
     "srecord",
